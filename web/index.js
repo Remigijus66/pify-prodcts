@@ -6,6 +6,8 @@ import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 import applyQrCodeApiEndpoints from "./middleware/qr-code-api.js";
+import applyQrCodePublicEndpoints from "./middleware/qr-code-public.js";
+
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT, 10);
 const STATIC_PATH =
   process.env.NODE_ENV === "production"
@@ -24,6 +26,7 @@ app.post(
   shopify.processWebhooks({ webhookHandlers: GDPRWebhookHandlers })
 );
 // All endpoints after this point will require an active session
+applyQrCodePublicEndpoints(app);
 app.use("/api/*", shopify.validateAuthenticatedSession());
 app.use(express.json());
 applyQrCodeApiEndpoints(app);
