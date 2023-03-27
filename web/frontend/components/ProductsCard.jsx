@@ -5,6 +5,7 @@ import {
   TextContainer,
   DisplayText,
   TextStyle,
+  DataTable,
 } from "@shopify/polaris";
 import { Toast } from "@shopify/app-bridge-react";
 import { useAppQuery, useAuthenticatedFetch } from "../hooks";
@@ -29,49 +30,77 @@ export function ProductsCard() {
     },
   });
 
+
   const toastMarkup = toastProps.content && !isRefetchingCount && (
     <Toast {...toastProps} onDismiss={() => setToastProps(emptyToastProps)} />
   );
 
-  const handlePopulate = async () => {
-    setIsLoading(true);
-    const response = await fetch("/api/products/create");
+  // const handlePopulate = async () => {
+  //   setIsLoading(true);
+  //   const response = await fetch("/api/products/create");
 
-    if (response.ok) {
-      await refetchProductCount();
-      setToastProps({ content: "5 products created!" });
-    } else {
-      setIsLoading(false);
-      setToastProps({
-        content: "There was an error creating products",
-        error: true,
-      });
-    }
+  //   if (response.ok) {
+  //     await refetchProductCount();
+  //     setToastProps({ content: "5 products created!" });
+  //   } else {
+  //     setIsLoading(false);
+  //     setToastProps({
+  //       content: "There was an error creating products",
+  //       error: true,
+  //     });
+  //   }
+  // };
+
+  const handlePopulate = async () => {
+    const pData = data.filter(x => (x.title[0] === 'P' || x.title === 'p'))
+    console.log(data)
+    console.log(data[15].title[0])
+    // console.log(data.filter((x) => { (x.title === 'P-Snowboard') }))
+    console.log(pData)
+
+
+    // setIsLoading(true);
+    // const response = await fetch("/api/products/create");
+
+
+
+    // if (response.ok) {
+    //   // await refetchProductCount();
+    //   setToastProps({ content: "5 products created!" });
+    // } else {
+    //   setIsLoading(false);
+    //   setToastProps({
+    //     content: "There was an error creating products",
+    //     error: true,
+    //   });
+    // }
   };
 
   return (
     <>
       {toastMarkup}
       <Card
-        title="Product Counter"
+        title="'P'-fied  PRODUCTS"
         sectioned
-        primaryFooterAction={{
-          content: "Populate 5 products",
-          onAction: handlePopulate,
-          loading: isLoading,
-        }}
+      // primaryFooterAction={{
+      //   content: "Populate 5 products",
+      //   onAction: handlePopulate,
+      //   loading: isLoading,
+      // }}
       >
         <TextContainer spacing="loose">
-          <p>
+          {/* <p>
             Sample products are created with a default title and price. You can
             remove them at any time.
-          </p>
+          </p> */}
           <Heading element="h4">
-            TOTAL PRODUCTS
-            <DisplayText size="medium">
+            {/* 'P'-fied  PRODUCTS */}
+            <DisplayText size="small">
               <TextStyle variation="strong">
                 {isLoadingCount ? "-" : data.count}
+                {isLoadingCount ? "-" : data.filter(x => (x.title[0] === 'P' || x.title === 'p')).map(x => <p>{x.title}</p>)}
               </TextStyle>
+
             </DisplayText>
           </Heading>
         </TextContainer>

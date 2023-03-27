@@ -17,10 +17,10 @@ import { ProductsCard } from "../components";
 export default function HomePage() {
   return (
     <Page narrowWidth>
-      <TitleBar title="App name" primaryAction={null} />
+      <TitleBar title="P" primaryAction={null} />
       <Layout>
         <Layout.Section>
-          <Card sectioned>
+          {/* <Card sectioned>
             <Stack
               wrap={false}
               spacing="extraTight"
@@ -75,7 +75,7 @@ export default function HomePage() {
                 </div>
               </Stack.Item>
             </Stack>
-          </Card>
+          </Card> */}
         </Layout.Section>
         <Layout.Section>
           <ProductsCard />
