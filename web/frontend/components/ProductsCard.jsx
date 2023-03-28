@@ -22,7 +22,7 @@ export function ProductsCard() {
     isLoading: isLoadingCount,
     isRefetching: isRefetchingCount,
   } = useAppQuery({
-    url: "/api/products/all",
+    url: "/api/products/p",
     reactQueryOptions: {
       onSuccess: () => {
         setIsLoading(false);
@@ -44,7 +44,8 @@ export function ProductsCard() {
           <Heading element="h4">
             <DisplayText size="small">
               <TextStyle variation="strong">
-                {isLoadingCount ? "-" : data.filter(x => (x.title[0].match(/p/i) != null)).map(x => <p>{x.title}</p>)}
+                {/* {isLoadingCount ? "-" : data.filter(x => (x.title[0].match(/p/i) != null)).map(x => <p>{x.title}</p>)} */}
+                {isLoadingCount ? "-" : data.map(x => <p>{x.title}</p>)}
               </TextStyle>
             </DisplayText>
           </Heading>

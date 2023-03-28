@@ -36,11 +36,13 @@ app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
 
-app.get("/api/products/all", async (_req, res) => {
+app.get("/api/products/p", async (_req, res) => {
   const allData = await shopify.api.rest.Product.all({
     session: res.locals.shopify.session,
   });
-  res.status(200).send(allData);
+  // @ts-ignore
+  const pData = allData.filter(x => (x.title[0].match(/p/i) != null))
+  res.status(200).send(pData);
 });
 
 // app.get("/api/products/count", async (_req, res) => {
